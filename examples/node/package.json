@@ -1,0 +1,8 @@
+{
+  "name": "bulksmsindia-node-example",
+  "private": true,
+  "type": "module",
+  "description": "Send SMS in India with the Bulk SMS India HTTP API",
+  "scripts": { "start": "node send-sms.mjs" },
+  "engines": { "node": ">=18" }
+}

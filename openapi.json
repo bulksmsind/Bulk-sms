@@ -1,0 +1,299 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "Bulk SMS India HTTP SMS API",
+  "version": "1.0",
+  "description": "Send bulk, transactional and OTP SMS in India, check credits and fetch delivery reports. Messages must use DLT-registered sender IDs and templates.",
+  "contact": {
+   "name": "Bulk SMS India",
+   "url": "https://bulksmsind.in/contact-us.html",
+   "email": "support@bulksmsind.in"
+  }
+ },
+ "externalDocs": {
+  "url": "https://bulksmsind.in/sms-api.html"
+ },
+ "servers": [
+  {
+   "url": "http://sms.bulksmsind.in"
+  }
+ ],
+ "paths": {
+  "/sendSMS": {
+   "get": {
+    "operationId": "sendSMS",
+    "summary": "Send SMS to one or more numbers (optionally scheduled)",
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": true,
+      "description": "Your panel username",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "apikey",
+      "in": "query",
+      "required": true,
+      "description": "Your API key from the SMS panel",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "sendername",
+      "in": "query",
+      "required": true,
+      "description": "Your DLT-approved sender ID",
+      "schema": {
+       "type": "string",
+       "example": "BSMSIN"
+      }
+     },
+     {
+      "name": "smstype",
+      "in": "query",
+      "required": true,
+      "description": "Route type, for example TRANS",
+      "schema": {
+       "type": "string",
+       "example": "TRANS"
+      }
+     },
+     {
+      "name": "numbers",
+      "in": "query",
+      "required": true,
+      "description": "One mobile number or a comma-separated list",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "message",
+      "in": "query",
+      "required": true,
+      "description": "Message text matching an approved DLT template",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "scheduled",
+      "in": "query",
+      "required": false,
+      "description": "Optional schedule time in yyyymmddhhmm (IST)",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Plain-text or JSON response from the gateway, including the message ID on success"
+     }
+    }
+   }
+  },
+  "/sendSMSByGroupname": {
+   "get": {
+    "operationId": "sendSMSByGroupname",
+    "summary": "Send SMS to a contact group saved in the panel",
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": true,
+      "description": "Your panel username",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "apikey",
+      "in": "query",
+      "required": true,
+      "description": "Your API key from the SMS panel",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "sendername",
+      "in": "query",
+      "required": true,
+      "description": "Your DLT-approved sender ID",
+      "schema": {
+       "type": "string",
+       "example": "BSMSIN"
+      }
+     },
+     {
+      "name": "smstype",
+      "in": "query",
+      "required": true,
+      "description": "Route type, for example TRANS",
+      "schema": {
+       "type": "string",
+       "example": "TRANS"
+      }
+     },
+     {
+      "name": "gname",
+      "in": "query",
+      "required": true,
+      "description": "Contact group name",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "message",
+      "in": "query",
+      "required": true,
+      "description": "Message text matching an approved DLT template",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Plain-text or JSON response from the gateway, including the message ID on success"
+     }
+    }
+   }
+  },
+  "/getSMSCredit": {
+   "get": {
+    "operationId": "getSMSCredit",
+    "summary": "Get remaining SMS credits",
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": true,
+      "description": "Your panel username",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "apikey",
+      "in": "query",
+      "required": true,
+      "description": "Your API key from the SMS panel",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Plain-text or JSON response from the gateway, including the message ID on success"
+     }
+    }
+   }
+  },
+  "/getDLR": {
+   "get": {
+    "operationId": "getDLR",
+    "summary": "Delivery status of one message",
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": true,
+      "description": "Your panel username",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "apikey",
+      "in": "query",
+      "required": true,
+      "description": "Your API key from the SMS panel",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "msgid",
+      "in": "query",
+      "required": true,
+      "description": "Message ID returned by sendSMS",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Plain-text or JSON response from the gateway, including the message ID on success"
+     }
+    }
+   }
+  },
+  "/getDLRReport": {
+   "get": {
+    "operationId": "getDLRReport",
+    "summary": "Date-wise delivery report",
+    "parameters": [
+     {
+      "name": "username",
+      "in": "query",
+      "required": true,
+      "description": "Your panel username",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "apikey",
+      "in": "query",
+      "required": true,
+      "description": "Your API key from the SMS panel",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "from",
+      "in": "query",
+      "required": true,
+      "description": "Start date yyyy-mm-dd",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "to",
+      "in": "query",
+      "required": true,
+      "description": "End date yyyy-mm-dd",
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "sendername",
+      "in": "query",
+      "required": true,
+      "description": "Sender ID",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Plain-text or JSON response from the gateway, including the message ID on success"
+     }
+    }
+   }
+  }
+ }
+}

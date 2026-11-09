@@ -1,90 +1,84 @@
-# Welcome to GitHub
+# Bulk SMS India – SMS API examples (PHP, Node.js, Python, cURL)
 
-Welcome to GitHub—where millions of developers work together on software. Ready to get started? Let’s learn how this all works by building and publishing your first GitHub Pages website!
+Code samples for the **[Bulk SMS India](https://bulksmsind.in/) HTTP SMS API**: send bulk, transactional and OTP SMS to Indian mobile numbers, schedule messages, check your balance and fetch delivery reports.
 
-## Repositories
+Bulk SMS India is a CPaaS provider and SMS aggregator in India, working since 2016 and connected directly to Airtel, Vi, BSNL and Jio. Besides SMS it offers the WhatsApp Business API, RCS, voice (OBD, IVR, missed call) and email.
 
-Right now, we’re in your first GitHub **repository**. A repository is like a folder or storage space for your project. Your project's repository contains all its files such as code, documentation, images, and more. It also tracks every change that you—or your collaborators—make to each file, so you can always go back to previous versions of your project if you make any mistakes.
+- API documentation: https://bulksmsind.in/sms-api.html
+- OpenAPI description: [`openapi.json`](openapi.json) (also at https://bulksmsind.in/openapi.json)
+- Create an account: https://sms.bulksmsind.in/registernew
 
-This repository contains three important files: The HTML code for your first website on GitHub, the CSS stylesheet that decorates your website with colors and fonts, and the **README** file. It also contains an image folder, with one image file.
+## Quick start
 
-## Describe your project
+1. [Sign up](https://sms.bulksmsind.in/registernew) and get your **username** and **API key** from the panel (API section).
+2. Register your entity, sender ID (header) and message templates on the TRAI **DLT** portal. Our team helps with this: [DLT registration guide](https://bulksmsind.in/dlt-registration-bulk-sms/).
+3. Send your first SMS:
 
-You are currently viewing your project's **README** file. **_README_** files are like cover pages or elevator pitches for your project. They are written in plain text or [Markdown language](https://guides.github.com/features/mastering-markdown/), and usually include a paragraph describing the project, directions on how to use it, who authored it, and more.
-
-[Learn more about READMEs](https://help.github.com/en/articles/about-readmes)
-
-## Your first website
-
-**GitHub Pages** is a free and easy way to create a website using the code that lives in your GitHub repositories. You can use GitHub Pages to build a portfolio of your work, create a personal website, or share a fun project that you coded with the world. GitHub Pages is automatically enabled in this repository, but when you create new repositories in the future, the steps to launch a GitHub Pages website will be slightly different.
-
-[Learn more about GitHub Pages](https://pages.github.com/)
-
-## Rename this repository to publish your site
-
-We've already set-up a GitHub Pages website for you, based on your personal username. This repository is called `hello-world`, but you'll rename it to: `username.github.io`, to match your website's URL address. If the first part of the repository doesn’t exactly match your username, it won’t work, so make sure to get it right.
-
-Let's get started! To update this repository’s name, click the `Settings` tab on this page. This will take you to your repository’s settings page. 
-
-![repo-settings-image](https://user-images.githubusercontent.com/18093541/63130482-99e6ad80-bf88-11e9-99a1-d3cf1660b47e.png)
-
-Under the **Repository Name** heading, type: `username.github.io`, where username is your username on GitHub. Then click **Rename**—and that’s it. When you’re done, click your repository name or browser’s back button to return to this page.
-
-<img width="1039" alt="rename_screenshot" src="https://user-images.githubusercontent.com/18093541/63129466-956cc580-bf85-11e9-92d8-b028dd483fa5.png">
-
-Once you click **Rename**, your website will automatically be published at: https://your-username.github.io/. The HTML file—called `index.html`—is rendered as the home page and you'll be making changes to this file in the next step.
-
-Congratulations! You just launched your first GitHub Pages website. It's now live to share with the entire world
-
-## Making your first edit
-
-When you make any change to any file in your project, you’re making a **commit**. If you fix a typo, update a filename, or edit your code, you can add it to GitHub as a commit. Your commits represent your project’s entire history—and they’re all saved in your project’s repository.
-
-With each commit, you have the opportunity to write a **commit message**, a short, meaningful comment describing the change you’re making to a file. So you always know exactly what changed, no matter when you return to a commit.
-
-## Practice: Customize your first GitHub website by writing HTML code
-
-Want to edit the site you just published? Let’s practice commits by introducing yourself in your `index.html` file. Don’t worry about getting it right the first time—you can always build on your introduction later.
-
-Let’s start with this template:
-
-```
-<p>Hello World! I’m [username]. This is my website!</p>
+```bash
+curl -G "http://sms.bulksmsind.in/sendSMS" \
+  --data-urlencode "username=YOUR_USERNAME" \
+  --data-urlencode "apikey=YOUR_API_KEY" \
+  --data-urlencode "sendername=BSMSIN" \
+  --data-urlencode "smstype=TRANS" \
+  --data-urlencode "numbers=9876543210" \
+  --data-urlencode "message=Your order #1001 is confirmed. - ShopIn"
 ```
 
-To add your introduction, copy our template and click the edit pencil icon at the top right hand corner of the `index.html` file.
+The response contains the message ID. Use it with `getDLR` to check delivery.
 
-<img width="997" alt="edit-this-file" src="https://user-images.githubusercontent.com/18093541/63131820-0794d880-bf8d-11e9-8b3d-c096355e9389.png">
+## Examples in this repo
 
+| Language | Client | Example |
+|---|---|---|
+| PHP 8 | [`examples/php/BulkSmsIndia.php`](examples/php/BulkSmsIndia.php) | [`send_sms.php`](examples/php/send_sms.php) |
+| Node.js 18+ | [`examples/node/bulksmsindia.js`](examples/node/bulksmsindia.js) | [`send-sms.mjs`](examples/node/send-sms.mjs) |
+| Python 3.10+ | [`examples/python/bulksmsindia.py`](examples/python/bulksmsindia.py) | [`send_sms.py`](examples/python/send_sms.py) |
+| cURL / Bash | – | [`send-sms.sh`](examples/curl/send-sms.sh), [`check-balance.sh`](examples/curl/check-balance.sh) |
 
-Delete this placeholder line:
+Each example reads credentials from the `BSI_USERNAME` and `BSI_API_KEY` environment variables.
 
-```
-<p>Welcome to your first GitHub Pages website!</p>
-```
+## Endpoints
 
-Then, paste the template to line 15 and fill in the blanks.
+Base URL: `http://sms.bulksmsind.in`. All endpoints use HTTP GET with URL-encoded query parameters.
 
-<img width="1032" alt="edit-githuboctocat-index" src="https://user-images.githubusercontent.com/18093541/63132339-c3a2d300-bf8e-11e9-8222-59c2702f6c42.png">
+| Action | Endpoint | Parameters |
+|---|---|---|
+| Send SMS (one or many numbers) | `/sendSMS` | `username`, `apikey`, `sendername`, `smstype`, `numbers`, `message` |
+| Schedule SMS | `/sendSMS` | as above + `scheduled` (`yyyymmddhhmm`, IST) |
+| Send to a contact group | `/sendSMSByGroupname` | `username`, `apikey`, `sendername`, `smstype`, `gname`, `message` |
+| Check balance | `/getSMSCredit` | `username`, `apikey` |
+| Delivery status of one message | `/getDLR` | `username`, `apikey`, `msgid` |
+| Date-wise delivery report | `/getDLRReport` | `username`, `apikey`, `from`, `to`, `sendername` |
 
+## Best practices
 
-When you’re done, scroll down to the `Commit changes` section near the bottom of the edit page. Add a short message explaining your change, like "Add my introduction", then click `Commit changes`.
+- Call the API from your server and keep the API key in an environment variable. Never put it in a browser or mobile app.
+- URL-encode the message and keep it exactly as your approved DLT template.
+- Use `TRANS` for OTPs and alerts. Send promotional SMS only between 10 AM and 9 PM IST.
+- Store the message ID and check delivery with `getDLR`.
+- Rate-limit OTP requests per number to stop abuse.
 
+## No-code integrations
 
-<img width="1030" alt="add-my-username" src="https://user-images.githubusercontent.com/18093541/63131801-efbd5480-bf8c-11e9-9806-89273f027d16.png">
+- [WooCommerce / WordPress SMS plugin](https://bulksmsind.in/woocommerce-sms-plugin.html)
+- [Zapier](https://bulksmsind.in/zapier-sms-integration.html), Pabbly Connect, Make and n8n
+- [All integrations](https://bulksmsind.in/integrations.html)
 
-Once you click `Commit changes`, your changes will automatically be published on your GitHub Pages website. Refresh the page to see your new changes live in action.
+## More from Bulk SMS India
 
-:tada: You just made your first commit! :tada:
+- [Bulk SMS service](https://bulksmsind.in/sms-messaging.html)
+- [Bulk SMS gateway and SMPP](https://bulksmsind.in/bulk-sms-gateway.html)
+- [OTP SMS service](https://bulksmsind.in/otp-sms-service-india/)
+- [WhatsApp Business API](https://bulksmsind.in/whatsapp-api.html)
+- [RCS messaging](https://bulksmsind.in/rcs-messaging.html)
 
-## Extra Credit: Keep on building!
+## Support
 
-Change the placeholder Octocat gif on your GitHub Pages website by [creating your own personal Octocat emoji](https://myoctocat.com/build-your-octocat/) or [choose a different Octocat gif from our logo library here](https://octodex.github.com/). Add that image to line 12 of your `index.html` file, in place of the `<img src=` link.
+- Email: support@bulksmsind.in
+- Phone: +91 90345 41288 (Mon–Sat, 10 AM–7 PM IST)
+- WhatsApp: +91 73573 33334
+- Website: https://bulksmsind.in/
 
-Want to add even more code and fun styles to your GitHub Pages website? [Follow these instructions](https://github.com/github/personal-website) to build a fully-fledged static website.
+## License
 
-![octocat](./images/create-octocat.png)
-
-## Everything you need to know about GitHub
-
-Getting started is the hardest part. If there’s anything you’d like to know as you get started with GitHub, try searching [GitHub Help](https://help.github.com). Our documentation has tutorials on everything from changing your repository settings to configuring GitHub from your command line.
+The example code in this repository is released under the [MIT License](LICENSE).
