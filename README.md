@@ -60,9 +60,13 @@ Base URL: `http://sms.bulksmsind.in`. All endpoints use HTTP GET with URL-encode
 
 ## No-code integrations
 
-- [WooCommerce / WordPress SMS plugin](https://bulksmsind.in/woocommerce-sms-plugin.html)
-- [Zapier](https://bulksmsind.in/zapier-sms-integration.html), Pabbly Connect, Make and n8n
-- [All integrations](https://bulksmsind.in/integrations.html)
+Available today:
+
+- [WooCommerce / WordPress SMS plugin](https://bulksmsind.in/woocommerce-sms-plugin.html) and WordPress forms (Contact Form 7, WPForms, Elementor Pro)
+- Google Sheets
+- Pabbly Connect, Make and n8n (HTTP step with the SMS API)
+
+Coming soon: [Zapier](https://bulksmsind.in/zapier-sms-integration.html), Shopify, Zoho CRM and HubSpot. Any CRM with webhooks (Freshworks, Pipedrive and others) can call the HTTP API directly. [All integrations](https://bulksmsind.in/integrations.html)
 
 ## More from Bulk SMS India
 
